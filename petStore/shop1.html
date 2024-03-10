@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+        }
+
+        @media only screen and (max-width: 600px) {
+            nav ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+
+        .box-container{
+            display: flex;
+            justify-content: center;
+        }
+
+        .box{
+            border: 1px solid;
+            width: 95%;
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap; 
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 350px;
+            padding: 20px;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #fff;
+            text-align: center;
+            background: #333;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .card p {
+            color: #666;
+            text-align: left;
+        }
+        .email {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+}
+
+.email:hover {
+  background-color: #0056b3;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="sell.html">Sell</a></li>
+                <li><a href="petcare.html">Petcare</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <h1>Welcome to Our Pet Store</h1>
+            <p>Your one-stop shop for all your pet needs</p>
+        </div>
+    </header>
+    <div class="box-container">
+        <div class="box" id="petContainer">
+            <!-- Cards will be dynamically generated here -->
+        </div>
+    </div>
+    <script>
+         var pets = JSON.parse(localStorage.getItem("pets"));
+            var petContainer = document.getElementById("petContainer");
+            console.log(pets)
+            // Check if there are any pets stored
+            if (pets && pets.length > 0) {
+                // Loop through each pet and create a card
+                pets.forEach(function (pet) {
+                    console.log("object")
+                    var card = document.createElement("div");
+                    card.classList.add("card");
+
+                    var name = document.createElement("h2");
+                    name.textContent = pet.name;
+
+                    var type = document.createElement("p");
+                    type.textContent = "Type: " + pet.type;
+
+                    var age = document.createElement("p");
+                    age.textContent = "Age: " + pet.age;
+
+                    var color = document.createElement("p");
+                    color.textContent = "Color: " + pet.color;
+
+                    var description = document.createElement("p");
+                    description.textContent = "Description: " + pet.description;
+
+                    var sellerName = document.createElement("p");
+                    sellerName.textContent = "Seller's Name: " + pet.sellerName;
+
+                    var phone = document.createElement("p");
+                    phone.textContent = "Phone: " + pet.phone;
+
+                    var email = document.createElement("a");
+                    email.classList.add("email");
+                    email.textContent = "Email: " + pet.email;
+                    email.href = "mailto:" + pet.email;
+
+                    card.appendChild(name);
+                    card.appendChild(type);
+                    card.appendChild(age);
+                    card.appendChild(color);
+                    card.appendChild(description);
+                    card.appendChild(sellerName);
+                    
+                    card.appendChild(phone);
+                    card.appendChild(email);
+
+                    petContainer.appendChild(card);
+                });
+            } else {
+                // Display a message if there are no pets stored
+                var message = document.createElement("p");
+                message.textContent = "No pets available";
+                petContainer.appendChild(message);
+            }
+    </script>
+</body>
+
+</html>
